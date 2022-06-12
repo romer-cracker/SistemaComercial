@@ -16,46 +16,34 @@
 		<div class="row">
 			<div class="col-md-6" style="margin: 0 auto;">
 				<div class="tile">
-					<h3 class="tile-title">Cadastro de Clientes</h3>
+					<h3 class="tile-title">Caixa PDV</h3>
 					<div class="tile-body">
-						<form action="<%= request.getContextPath() %>/ServletClienteController" method="post" id="formUser">
+						<form action="<%= request.getContextPath() %>/ServletVendaProdutosController" method="post" id="formUser">
 							<input type="hidden" name="acao" id="acao" value="">
 							<div class="form-group">
 								<label class="control-label">ID</label> <input
-									class="form-control" type="text" readonly="readonly" id="idCliente" name="idCliente" value="${modelCliente.idCliente}">
-							</div>
-							<div class="form-group">
-								<label class="control-label">Nome</label> <input
-									class="form-control" type="text" id="nome" name="nome" value="${modelCliente.nome}" required="required">
-							</div>
-							<div class="form-group">
-								<label class="control-label">Logradouro</label> <input class="form-control" type="text" required="required" id="endereco" name="endereco" value="${modelCliente.endereco}">
+									class="form-control" type="text" readonly="readonly" id="idVenda_produto" name="idVenda_produto" value="${modelVendasProdutos.idVenda_produto}">
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Bairro</label> <input
-									class="form-control" type="text" id="bairro" name="bairro" value="${modelCliente.bairro}" required="required">
+								<label class="control-label">Cliente</label> <input
+									class="form-control" type="text" id="fk_cliente" name="fk_cliente" value="${modelVendasProdutos.fk_cliente}" required="required">
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Localidade</label> <input
-									class="form-control" type="text" id="cidade" name="cidade" value="${modelCliente.cidade}" required="required">
+								<label class="control-label">Produto</label> <input
+									class="form-control" type="text" id="fk_produto" name="fk_produto" value="${modelVendasProdutos.fk_produto}" required="required">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Venda</label> <input class="form-control" type="text" required="required" id="fk_venda" name="fk_venda" value="${modelVendasProdutos.fk_venda}">
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Cep</label> <input onblur="pesquisaCep();"
-									class="form-control" type="text" id="cep" name="cep" value="${modelCliente.cep}" required="required">
+								<label class="control-label">Valor</label> <input class="form-control" type="text" required="required" id="valor" name="valor" value="${modelVendasProdutos.valor}">
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Uf</label> <input
-									class="form-control" type="text" id="uf" name="uf" value="${modelCliente.uf}" required="required">
-							</div>
-							
-							
-							<div class="form-group">
-								<label class="control-label">Telefone</label> <input
-									class="form-control" type="text" id="telefone" name="telefone" value="${modelCliente.telefone}" autocomplete="off" required="required">
+								<label class="control-label">Quantidade</label> <input class="form-control" type="text" required="required" id="quantidade" name="quantidade" value="${modelVendasProdutos.quantidade}">
 							</div>
 							
 							<button class="btn btn-primary" type="button"  onclick="limparForm();"><i class="fa fa-plus" aria-hidden="true"></i>Novo</button>
@@ -68,25 +56,24 @@
 					
 				</div>
 				
-					<h3 class="tile-title" style="font-size: 20px;">CLIENTES CARREGADOS</h3>
+					<h3 class="tile-title" style="font-size: 20px;">VENDAS</h3>
 				<div style="height: 250px; overflow: scroll;">
 					<table class="table table-striped" id="tabelaresultadosview">
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>Nome</th>
-								<th>Telefone</th>
-								<th>Ver</th>
+								<th>Produto</th>
+								<th>Valor</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items='${modelClientes}' var='mc'>
+							<c:forEach items='${modellVendaProdutos}' var='mvp'>
 								<tr>
-									<td><c:out value="${mc.idCliente}"></c:out></td>
-									<td><c:out value="${mc.nome}"></c:out></td>
-									<td><c:out value="${mc.telefone}"></c:out></td>
+									<td><c:out value="${mvp.idVenda_produto}"></c:out></td>
+									<td><c:out value="${mvp.fk_produto}"></c:out></td>
+									<td><c:out value="${mvp.fk_venda}"></c:out></td>
 									<td><a class="btn btn btn-success"
-										href="<%= request.getContextPath() %>/ServletClienteController?acao=buscarEditar&idCliente=${mc.idCliente}">Ver</a></td>
+										href="<%= request.getContextPath() %>/ServletVendaProdutosController?acao=buscarEditar&idVenda_produto=${mvp.idVenda_produto}">Ver</a></td>
 								</tr>
 
 
@@ -103,7 +90,7 @@
 							int totalPagina = (int) request.getAttribute("totalPagina");
 											   
 								for (int p = 0; p < totalPagina; p++){
-									String url = request.getContextPath() + "/ServletUsuarioController?acao=paginar&pagina=" + (p * 5);  
+									String url = request.getContextPath() + "/ServletVendaProdutosController?acao=paginar&pagina=" + (p * 5);  
 									out.print("<li class=\"page-item\"><a class=\"page-link\" href=\""+ url +"\">"+(p + 1)+"</a></li>");
 							}
 						
@@ -120,7 +107,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Usuários</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Vendas de Produtos</h5>
 					<button type="button" class="btn-close" data-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -133,28 +120,27 @@
 					</div>
 						<div style="height: 250px; overflow: scroll;">
 							<table class="table table-striped" id="tabelaresultados">
-								<thead>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Produto</th>
+									<th>Valor</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items='${modellVendaProdutos}' var='mvp'>
 									<tr>
-										<th>ID</th>
-										<th>Nome</th>
-										<th>Telefone</th>
-										<th>Ver</th>
-									</tr>
-								</thead>
-								<tbody>
-								<c:forEach items='${modelClientes}' var='mc'>
-									<tr>
-										<td><c:out value="${mc.idCliente}"></c:out></td>
-										<td><c:out value="${mc.nome}"></c:out></td>
-										<td><c:out value="${mc.telefone}"></c:out></td>
+										<td><c:out value="${mvp.idVenda_produto}"></c:out></td>
+										<td><c:out value="${mvp.fk_produto}"></c:out></td>
+										<td><c:out value="${mvp.fk_venda}"></c:out></td>
 										<td><a class="btn btn btn-success"
-											href="<%= request.getContextPath() %>/ServletClienteController?acao=buscarEditar&idCliente=${mc.idCliente}">Ver</a></td>
+											href="<%= request.getContextPath() %>/ServletVendaProdutosController?acao=buscarEditar&idVenda_produto=${mvp.idVenda_produto}">Ver</a></td>
 									</tr>
 
 
-								</c:forEach>	
-								</tbody>
-							</table>
+								</c:forEach>
+							</tbody>
+						</table>
 						</div>
 					<nav aria-label="Page navigation example">
 						<ul class="pagination" id="ulPaginacaoUserAjax">
@@ -175,31 +161,14 @@
 	<jsp:include page="javascript.jsp"></jsp:include>
 	
 	<script type="text/javascript">
-	
-	function pesquisaCep() {
-	    var cep = $("#cep").val();
-	    
-	    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) { 
-
-		if (!("erro" in dados)) {
-		        $("#cep").val(dados.cep);
-		        $("#logradouro").val(dados.endereco);
-	            $("#bairro").val(dados.bairro);
-	            $("#localidade").val(dados.cidade);
-	            $("#uf").val(dados.uf);
-		}
-		    
-		
-	    });
-	}
 
 
-	function verEditar(idCliente) {
+	function verEditar(idVenda_produto) {
 	   
 	    var urlAction = document.getElementById('formUser').action;
 	    
 	    
-	    window.location.href = urlAction + '?acao=buscarEditar&idCliente='+idCliente;
+	    window.location.href = urlAction + '?acao=buscarEditar&idVenda_produto='+idVenda_produto;
 	    
 	}
 
@@ -222,7 +191,7 @@
 			 $("#ulPaginacaoUserAjax > li").remove();
 			 
 			  for(var p = 0; p < json.length; p++){
-			      $('#tabelaresultados > tbody').append('<tr> <td>'+json[p].idCliente+'</td> <td> '+json[p].nome+'</td> <td> '+json[p].telefone+'</td> <td><button onclick="verEditar('+json[p].idCliente+')" type="button" class="btn btn-info">Ver</button></td></tr>');
+			      $('#tabelaresultados > tbody').append('<tr> <td>'+json[p].idVenda_produto+'</td> <td> '+json[p].fk_produto+'</td> <td> '+json[p].fk_venda+'</td> <td><button onclick="verEditar('+json[p].idVenda_produto+')" type="button" class="btn btn-info">Ver</button></td></tr>');
 			  }
 			  
 			  document.getElementById('totalResultados').textContent = 'Resultados: ' + json.length;
@@ -273,7 +242,7 @@
 			 $("#ulPaginacaoUserAjax > li").remove();
 			 
 			  for(var p = 0; p < json.length; p++){
-			      $('#tabelaresultados > tbody').append('<tr> <td>'+json[p].idCliente+'</td> <td> '+json[p].nome+'</td> <td> '+json[p].telefone+'</td> <td><button onclick="verEditar('+json[p].idCliente+')" type="button" class="btn btn-info">Ver</button></td></tr>');
+			      $('#tabelaresultados > tbody').append('<tr> <td>'+json[p].idVenda_produto+'</td> <td> '+json[p].fk_produto+'</td> <td> '+json[p].fk_venda+'</td> <td><button onclick="verEditar('+json[p].idVenda_produto+')" type="button" class="btn btn-info">Ver</button></td></tr>');
 			  }
 			  
 			  document.getElementById('totalResultados').textContent = 'Resultados: ' + json.length;
@@ -308,13 +277,13 @@
 	    if (confirm('Deseja realmente excluir os dados?')){
 		
 		 var urlAction = document.getElementById('formUser').action;
-		 var idCli = document.getElementById('idCliente').value;
+		 var idProVen = document.getElementById('idVenda_produto').value;
 		 
 		 $.ajax({
 		     
 		     method: "get",
 		     url : urlAction,
-		     data : "idCliente=" + idCli + '&acao=deletarajax',
+		     data : "idVenda_produto=" + idProVen + '&acao=deletarajax',
 		     success: function (response) {
 			 
 			  limparForm();

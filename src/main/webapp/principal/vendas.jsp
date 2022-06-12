@@ -16,77 +16,67 @@
 		<div class="row">
 			<div class="col-md-6" style="margin: 0 auto;">
 				<div class="tile">
-					<h3 class="tile-title">Cadastro de Clientes</h3>
+					<h3 class="tile-title">Pedidos de Vendas</h3>
 					<div class="tile-body">
-						<form action="<%= request.getContextPath() %>/ServletClienteController" method="post" id="formUser">
+						<form action="<%= request.getContextPath() %>/ServletVendaController" method="post" id="formUser">
 							<input type="hidden" name="acao" id="acao" value="">
 							<div class="form-group">
 								<label class="control-label">ID</label> <input
-									class="form-control" type="text" readonly="readonly" id="idCliente" name="idCliente" value="${modelCliente.idCliente}">
+									class="form-control" type="text" readonly="readonly" id="idVendas" name="idVendas" value="${modelVendas.idVendas}">
 							</div>
 							<div class="form-group">
-								<label class="control-label">Nome</label> <input
-									class="form-control" type="text" id="nome" name="nome" value="${modelCliente.nome}" required="required">
+								<label class="control-label">Cliente</label> <input
+									class="form-control" type="text" id="fk_cliente" name="fk_cliente" value="${modelVendas.fk_cliente}" required="required">
 							</div>
 							<div class="form-group">
-								<label class="control-label">Logradouro</label> <input class="form-control" type="text" required="required" id="endereco" name="endereco" value="${modelCliente.endereco}">
-							</div>
-							
-							<div class="form-group">
-								<label class="control-label">Bairro</label> <input
-									class="form-control" type="text" id="bairro" name="bairro" value="${modelCliente.bairro}" required="required">
+								<label class="control-label">Data da Venda</label> <input class="form-control" type="text" required="required" id="dataVenda" name="dataVenda" value="${modelVendas.dataVenda}">
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Localidade</label> <input
-									class="form-control" type="text" id="cidade" name="cidade" value="${modelCliente.cidade}" required="required">
+								<label class="control-label">Valor</label> <input
+									class="form-control" type="text" id="valor" name="valor" value="${modelVendas.valor}" required="required">
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Cep</label> <input onblur="pesquisaCep();"
-									class="form-control" type="text" id="cep" name="cep" value="${modelCliente.cep}" required="required">
+								<label class="control-label">Valor Total</label> <input
+									class="form-control" type="text" id="valorTotal" name="valorTotal" value="${modelVendas.valorTotal}" required="required">
 							</div>
 							
 							<div class="form-group">
-								<label class="control-label">Uf</label> <input
-									class="form-control" type="text" id="uf" name="uf" value="${modelCliente.uf}" required="required">
-							</div>
-							
-							
-							<div class="form-group">
-								<label class="control-label">Telefone</label> <input
-									class="form-control" type="text" id="telefone" name="telefone" value="${modelCliente.telefone}" autocomplete="off" required="required">
+								<label class="control-label">Desconto</label> <input onblur="pesquisaCep();"
+									class="form-control" type="text" id="desconto" name="desconto" value="${modelVendas.desconto}" required="required">
 							</div>
 							
 							<button class="btn btn-primary" type="button"  onclick="limparForm();"><i class="fa fa-plus" aria-hidden="true"></i>Novo</button>
 							<button class="btn btn-success"><i class="fa fa-hdd-o" aria-hidden="true"></i>Gravar</button>
 							<button class="btn btn-warning" type="button" onclick="criarDelete();"><i class="fa fa-trash" aria-hidden="true"></i>Excluir</button>
 							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalUsuario"><i class="fa fa-search" aria-hidden="true"></i>Pesquisar</button>
+							
 						</form>
 						<span id="msg">${msg}</span>
 					</div>
 					
 				</div>
 				
-					<h3 class="tile-title" style="font-size: 20px;">CLIENTES CARREGADOS</h3>
+					<h3 class="tile-title" style="font-size: 20px;">VENDAS CARREGADAS</h3>
 				<div style="height: 250px; overflow: scroll;">
 					<table class="table table-striped" id="tabelaresultadosview">
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>Nome</th>
-								<th>Telefone</th>
+								<th>Cliente</th>
+								<th>Valor Total</th>
 								<th>Ver</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items='${modelClientes}' var='mc'>
+							<c:forEach items='${modellVendas}' var='mv'>
 								<tr>
-									<td><c:out value="${mc.idCliente}"></c:out></td>
-									<td><c:out value="${mc.nome}"></c:out></td>
-									<td><c:out value="${mc.telefone}"></c:out></td>
+									<td><c:out value="${mv.idVendas}"></c:out></td>
+									<td><c:out value="${mv.fk_cliente}"></c:out></td>
+									<td><c:out value="${mv.valorTotal}"></c:out></td>
 									<td><a class="btn btn btn-success"
-										href="<%= request.getContextPath() %>/ServletClienteController?acao=buscarEditar&idCliente=${mc.idCliente}">Ver</a></td>
+										href="<%= request.getContextPath() %>/ServletVendaController?acao=buscarEditar&idVendas=${mv.idVendas}">Ver</a></td>
 								</tr>
 
 
@@ -103,7 +93,7 @@
 							int totalPagina = (int) request.getAttribute("totalPagina");
 											   
 								for (int p = 0; p < totalPagina; p++){
-									String url = request.getContextPath() + "/ServletUsuarioController?acao=paginar&pagina=" + (p * 5);  
+									String url = request.getContextPath() + "/ServletVendaController?acao=paginar&pagina=" + (p * 5);  
 									out.print("<li class=\"page-item\"><a class=\"page-link\" href=\""+ url +"\">"+(p + 1)+"</a></li>");
 							}
 						
@@ -120,7 +110,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Usuários</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisar por Vendas</h5>
 					<button type="button" class="btn-close" data-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -136,19 +126,19 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Nome</th>
-										<th>Telefone</th>
+										<th>Cliente</th>
+										<th>Valor Total</th>
 										<th>Ver</th>
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items='${modelClientes}' var='mc'>
+								<c:forEach items='${modellVendas}' var='mv'>
 									<tr>
-										<td><c:out value="${mc.idCliente}"></c:out></td>
-										<td><c:out value="${mc.nome}"></c:out></td>
-										<td><c:out value="${mc.telefone}"></c:out></td>
+										<td><c:out value="${mv.idVendas}"></c:out></td>
+										<td><c:out value="${mv.fk_cliente}"></c:out></td>
+										<td><c:out value="${mv.valorTotal}"></c:out></td>
 										<td><a class="btn btn btn-success"
-											href="<%= request.getContextPath() %>/ServletClienteController?acao=buscarEditar&idCliente=${mc.idCliente}">Ver</a></td>
+											href="<%= request.getContextPath() %>/ServletVendaController?acao=buscarEditar&idVendas=${mv.idVendas}">Ver</a></td>
 									</tr>
 
 
@@ -175,31 +165,14 @@
 	<jsp:include page="javascript.jsp"></jsp:include>
 	
 	<script type="text/javascript">
-	
-	function pesquisaCep() {
-	    var cep = $("#cep").val();
-	    
-	    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) { 
-
-		if (!("erro" in dados)) {
-		        $("#cep").val(dados.cep);
-		        $("#logradouro").val(dados.endereco);
-	            $("#bairro").val(dados.bairro);
-	            $("#localidade").val(dados.cidade);
-	            $("#uf").val(dados.uf);
-		}
-		    
-		
-	    });
-	}
 
 
-	function verEditar(idCliente) {
+	function verEditar(idVendas) {
 	   
 	    var urlAction = document.getElementById('formUser').action;
 	    
 	    
-	    window.location.href = urlAction + '?acao=buscarEditar&idCliente='+idCliente;
+	    window.location.href = urlAction + '?acao=buscarEditar&idVendas='+idVendas;
 	    
 	}
 
@@ -222,7 +195,7 @@
 			 $("#ulPaginacaoUserAjax > li").remove();
 			 
 			  for(var p = 0; p < json.length; p++){
-			      $('#tabelaresultados > tbody').append('<tr> <td>'+json[p].idCliente+'</td> <td> '+json[p].nome+'</td> <td> '+json[p].telefone+'</td> <td><button onclick="verEditar('+json[p].idCliente+')" type="button" class="btn btn-info">Ver</button></td></tr>');
+			      $('#tabelaresultados > tbody').append('<tr> <td>'+json[p].idVendas+'</td> <td>'+json[p].fk_cliente+'</td> <td> '+json[p].valorTotal+'</td> <td><button onclick="verEditar('+json[p].idVendas+')" type="button" class="btn btn-info">Ver</button></td></tr>');
 			  }
 			  
 			  document.getElementById('totalResultados').textContent = 'Resultados: ' + json.length;
@@ -273,7 +246,7 @@
 			 $("#ulPaginacaoUserAjax > li").remove();
 			 
 			  for(var p = 0; p < json.length; p++){
-			      $('#tabelaresultados > tbody').append('<tr> <td>'+json[p].idCliente+'</td> <td> '+json[p].nome+'</td> <td> '+json[p].telefone+'</td> <td><button onclick="verEditar('+json[p].idCliente+')" type="button" class="btn btn-info">Ver</button></td></tr>');
+			      $('#tabelaresultados > tbody').append('<tr> <td>'+json[p].idVendas+'</td> <td>'+json[p].fk_cliente+'</td> <td> '+json[p].valorTotal+'</td> <td><button onclick="verEditar('+json[p].idVendas+')" type="button" class="btn btn-info">Ver</button></td></tr>');
 			  }
 			  
 			  document.getElementById('totalResultados').textContent = 'Resultados: ' + json.length;
@@ -308,13 +281,13 @@
 	    if (confirm('Deseja realmente excluir os dados?')){
 		
 		 var urlAction = document.getElementById('formUser').action;
-		 var idCli = document.getElementById('idCliente').value;
+		 var idVen = document.getElementById('idVendas').value;
 		 
 		 $.ajax({
 		     
 		     method: "get",
 		     url : urlAction,
-		     data : "idCliente=" + idCli + '&acao=deletarajax',
+		     data : "idVendas=" + idVen + '&acao=deletarajax',
 		     success: function (response) {
 			 
 			  limparForm();
@@ -352,7 +325,7 @@
 	    for (p = 0; p < elementos.length; p ++){
 		    elementos[p].value = '';
 		    
-		    $("#nome").focus();
+		    $("#fk_cliente").focus();
 	    }
 	}
 

@@ -22,7 +22,13 @@
 	    </c:if>
 		
 		
-		<li><a class="app-menu__item" href="<%= request.getContextPath() %>/ServletClienteController?acao=listarUser""><i class="app-menu__icon fa fa-address-card-o" aria-hidden="true"></i><span class="app-menu__label">Clientes</span></a></li>
+		<li><a class="app-menu__item" href="<%= request.getContextPath() %>/ServletClienteController?acao=listarUser"><i class="app-menu__icon fa fa-address-card-o" aria-hidden="true"></i><span class="app-menu__label">Clientes</span></a></li>
+		
+		<li><a class="app-menu__item" href="<%= request.getContextPath() %>/ServletProdutoController?acao=listarUser"><i class="app-menu__icon fa fa-product-hunt" aria-hidden="true"></i><span class="app-menu__label">Produtos</span></a></li>
+		
+		<li><a class="app-menu__item" href="<%= request.getContextPath() %>/ServletVendaController?acao=listarUser"><i class="app-menu__icon fa fa-desktop" aria-hidden="true"></i><span class="app-menu__label">Vendas</span></a></li>
+		
+		<li><a class="app-menu__item" href="<%= request.getContextPath() %>/ServletVendaProdutosController?acao=listarUser"><i class="app-menu__icon fa fa-archive" aria-hidden="true"></i><span class="app-menu__label">Vendas de Produtos</span></a></li>
 		
 		
 		

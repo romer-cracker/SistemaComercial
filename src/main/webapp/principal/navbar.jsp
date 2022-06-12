@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="index.html">Miss do Pé</a>
+    <header class="app-header"><a class="app-header__logo" href="<%= request.getContextPath()%>/principal/principal.jsp">Miss do Pé</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">

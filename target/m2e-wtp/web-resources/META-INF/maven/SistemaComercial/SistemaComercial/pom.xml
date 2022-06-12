@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>SistemaComercial</groupId>
-  <artifactId>SistemaComercial</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>SistemaComercial</name>
-  <description>ROMERITO TECNOLOGIES</description>
- <properties>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>SistemaComercial</groupId>
+	<artifactId>SistemaComercial</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>SistemaComercial</name>
+	<description>ROMERITO TECNOLOGIES</description>
+	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
@@ -25,7 +25,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.8</version>
 		</dependency>
-<!--  
+		<!--  
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
@@ -104,5 +104,6 @@
 				</executions>
 			</plugin>
 		</plugins>
+
 	</build>
 </project>
